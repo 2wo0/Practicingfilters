@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Post from "./Pages/Posts/Post";
+import MainPage from "./Pages/Solidarite/MainPage";
 
 class Routes extends Component {
   render() {
     return (
       <Router>
         <Switch>
-          <Route exact path="/" component={Post} />
+          <Route exact path="/" component={MainPage} />
         </Switch>
       </Router>
     );
