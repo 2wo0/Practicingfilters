@@ -1,27 +1,28 @@
 import React from "react";
 import styled from "styled-components";
+import Post from "../Posts/Post";
 
 export default function Search() {
   return (
-    <SearchWrap>
-      <Title>솔리다리테 개발자 사전 과제</Title>
-      <SubTitle>게시물을 검색해 보세요</SubTitle>
-      <InputWrap>
-        <Icon>
-          <i class="fas fa-search"></i>
-        </Icon>
-        <PostSearch type="text" placeholder="검색어를 입력하세요"></PostSearch>
-      </InputWrap>
-    </SearchWrap>
+    <>
+      <SearchWrap>
+        <SubTitle>게시물을 검색해 보세요</SubTitle>
+        <InputWrap>
+          <Icon>
+            <i class="fas fa-search"></i>
+          </Icon>
+          <PostSearch
+            type="text"
+            placeholder="검색어를 입력하세요"
+          ></PostSearch>
+        </InputWrap>
+      </SearchWrap>
+      <Post />
+    </>
   );
 }
 
 const SearchWrap = styled.header``;
-
-const Title = styled.h1`
-  font-size: 52px;
-  text-align: center;
-`;
 
 const SubTitle = styled.p`
   font-size: 21px;
@@ -51,4 +52,6 @@ const Icon = styled.div`
   color: ${(props) => props.theme.gray};
 `;
 
-const PostSearch = styled.input``;
+const PostSearch = styled.input`
+  width: 280px;
+`;
