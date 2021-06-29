@@ -16,6 +16,8 @@ const theme = {
     alignItems: "center",
   },
 
+  white: "#FFFFFF",
+
   gray: "#6B7280",
 };
 export default theme;

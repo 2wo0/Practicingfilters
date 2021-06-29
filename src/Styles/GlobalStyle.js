@@ -18,6 +18,7 @@ outline: none;
 }
 
 button {
+border-style: none;
 outline: none;
 }
 
