@@ -9,7 +9,7 @@ export default function Search() {
         <SubTitle>게시물을 검색해 보세요</SubTitle>
         <InputWrap>
           <Icon>
-            <i class="fas fa-search"></i>
+            <i className="fas fa-search"></i>
           </Icon>
           <PostSearch
             type="text"
