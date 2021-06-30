@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import PostList from "./PostList";
+import axios from "axios";
+import { AListAPI } from "../../Config";
 
 export default function Post() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(AListAPI);
+        setData(response.data);
+      } catch (e) {
+        console.log("Error:", e);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <PostWrap>
       <ButtonWrap>
@@ -9,10 +26,9 @@ export default function Post() {
         <Bposts>B Posts</Bposts>
       </ButtonWrap>
       <PostListWrap>
-        <PostList>ddd</PostList>
-        <PostList>ddd</PostList>
-        <PostList>ddd</PostList>
-        <PostList>ddd</PostList>
+        {data.map((content, idx) => {
+          return <PostList key={idx} content={content} />;
+        })}
       </PostListWrap>
     </PostWrap>
   );
@@ -37,16 +53,8 @@ const Bposts = styled(Aposts)``;
 const PostListWrap = styled.section`
   width: 930px;
   margin-top: 10px;
-  padding: 17px 17px 17px 17px;
+  padding: 17px;
   border: 1px solid black;
   border-color: rgba(229, 231, 235);
   border-radius: 5px;
-`;
-
-const PostList = styled.article`
-  width: 893px;
-  height: 122px;
-  padding: 17px 17px 17px 17px;
-  margin-bottom: 17px;
-  border: 1px solid black;
 `;
