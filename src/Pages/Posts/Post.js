@@ -1,24 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import PostList from "./PostList";
-import axios from "axios";
-import { AListAPI } from "../../Config";
 
-export default function Post() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(AListAPI);
-        setData(response.data);
-      } catch (e) {
-        console.log("Error:", e);
-      }
-    };
-    fetchData();
-  }, []);
-
+export default function Post({ data }) {
   return (
     <PostWrap>
       <ButtonWrap>
@@ -26,9 +10,10 @@ export default function Post() {
         <Bposts>B Posts</Bposts>
       </ButtonWrap>
       <PostListWrap>
-        {data.map((content, idx) => {
-          return <PostList key={idx} content={content} />;
-        })}
+        {data &&
+          data.map((content, idx) => {
+            return <PostList key={idx} content={content} />;
+          })}
       </PostListWrap>
     </PostWrap>
   );
