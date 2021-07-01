@@ -20,6 +20,10 @@ const theme = {
 
   gray: "#6B7280",
 
+  lightgray: "#F3F4F6",
+
   blue: "#3B82F6",
+
+  lightblue: "#93C5FD",
 };
 export default theme;

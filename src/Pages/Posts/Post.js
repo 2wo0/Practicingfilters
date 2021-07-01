@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import PostList from "./PostList";
 
 export default function Post({ data }) {
+  const [hanbleClick, setHanbleClick] = useState(true);
+
   return (
     <PostWrap>
       <ButtonWrap>
-        <Aposts>A Posts</Aposts>
-        <Bposts>B Posts</Bposts>
+        <Aposts onClick={() => setHanbleClick(true)} hanbleClick={hanbleClick}>
+          A Posts
+        </Aposts>
+        <Bposts onClick={() => setHanbleClick(false)} hanbleClick={hanbleClick}>
+          B Posts
+        </Bposts>
       </ButtonWrap>
       <PostListWrap>
         {data &&
@@ -31,9 +37,17 @@ const Aposts = styled.button`
   height: 42px;
   padding: 10px 10px 10px 10px;
   background-color: ${(props) => props.theme.white};
+  color: ${(props) => (props.hanbleClick ? "#3B82F6" : "#6B7280")};
+
+  &:hover {
+    background-color: ${(props) => props.theme.lightgray};
+    color: ${(props) => props.theme.lightblue};
+  }
 `;
 
-const Bposts = styled(Aposts)``;
+const Bposts = styled(Aposts)`
+  color: ${(props) => (props.hanbleClick ? "#6B7280" : "#3B82F6")};
+`;
 
 const PostListWrap = styled.section`
   width: 930px;
