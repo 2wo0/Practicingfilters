@@ -1,30 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { AListAPI } from "../../Config";
 
 export default function PostDetailPage(props) {
+  const [detailData, setDetailData] = useState({});
+  const history = useHistory();
+
+  const pageMove = () => {
+    history.push({
+      pathname: `/`,
+    });
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${AListAPI}${props.location.state}`);
+        setDetailData(response.data);
+      } catch (e) {
+        console.log("Error:", e);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <PostDetailWrap>
       <PostDetail>
         <TitleWrap>
-          <Title>
-            Sequi sapiente quia quidem vero cum et cumque reprehenderit
-            consequatur.
-          </Title>
+          <Title>{detailData.title}</Title>
         </TitleWrap>
         <ContentWrap>
-          <Content>
-            Perferendis amet voluptatum. Excepturi nisi tenetur culpa
-            consequatur soluta est eaque. Blanditiis quod minima maxime sunt.
-            Nobis omnis occaecati aut porro cumque necessitatibus aut illo. Sit
-            molestiae aut sed a et illum perferendis. Iusto error error saepe
-            eligendi rerum dolore quaerat facere labore. Sit beatae aspernatur
-            sit ut ex omnis ipsam numquam. Eos id ut non veniam eos et. Suscipit
-            sed cum. Officiis accusantium dolorum voluptatum.
-          </Content>
+          <Content>{detailData.content}</Content>
         </ContentWrap>
       </PostDetail>
       <BackwardWrap>
-        <Backward>뒤로가기</Backward>
+        <Backward onClick={() => pageMove()}>뒤로가기</Backward>
       </BackwardWrap>
     </PostDetailWrap>
   );
