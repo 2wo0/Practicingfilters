@@ -10,6 +10,7 @@ class Routes extends Component {
         <Switch>
           <Route exact path="/" component={MainPage} />
           <Route exact path="/detail" component={PostDetailPage} />
+          <Route exact path="/detail/:id" component={PostDetailPage} />
         </Switch>
       </Router>
     );

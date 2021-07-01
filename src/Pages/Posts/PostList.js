@@ -5,15 +5,15 @@ import { useHistory } from "react-router-dom";
 export default function PostList({ content }) {
   const history = useHistory();
 
-  const pageMove = () => {
+  const pageMove = (id) => {
     history.push({
-      pathname: `/detail`,
-      state: content,
+      pathname: `/detail/a?id=${id}`,
+      state: content.id,
     });
   };
 
   return (
-    <Post onClick={() => pageMove()}>
+    <Post onClick={() => pageMove(content.id)}>
       <Title>
         <Id>{content.id}.</Id>
         {content.title}
