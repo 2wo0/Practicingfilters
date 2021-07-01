@@ -23,11 +23,15 @@ export default function Search() {
   }, []);
 
   useEffect(() => {
-    setFilterData(
-      Object.values(data).filter((object) =>
-        object.title.toLowerCase().includes(inputValue.toLowerCase())
-      )
-    );
+    const filter = () => {
+      setFilterData(
+        Object.values(data).filter((object) =>
+          object.title.toLowerCase().includes(inputValue.toLowerCase())
+        )
+      );
+    };
+
+    setTimeout(filter, 150);
   }, [inputValue]);
 
   const getFocus = () => {
@@ -56,7 +60,7 @@ export default function Search() {
           ></PostSearch>
         </InputWrap>
       </SearchWrap>
-      <Post data={filterData[0] ? filterData : data} inputValue={inputValue} />
+      <Post data={filterData[0] ? filterData : data} />
     </>
   );
 }

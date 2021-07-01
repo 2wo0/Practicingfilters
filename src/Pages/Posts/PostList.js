@@ -1,9 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 export default function PostList({ content }) {
+  const history = useHistory();
+
+  const pageMove = () => {
+    history.push({
+      pathname: `/detail`,
+      state: content,
+    });
+  };
+
   return (
-    <Post>
+    <Post onClick={() => pageMove()}>
       <Title>
         <Id>{content.id}.</Id>
         {content.title}
@@ -16,6 +26,11 @@ export default function PostList({ content }) {
 const Post = styled.article`
   width: 893px;
   padding: 17px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => props.theme.lightgray};
+  }
 `;
 
 const Title = styled.h3`
