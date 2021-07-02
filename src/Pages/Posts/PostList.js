@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
-export default function PostList({ content }) {
+export default function PostList({ content, inputValue }) {
   const history = useHistory();
 
   const pageMove = (id) => {
     history.push({
-      pathname: `/detail/a?id=${id}`,
+      pathname: `/detail/a?id=${id}&search=${inputValue}`,
       state: content.id,
     });
   };

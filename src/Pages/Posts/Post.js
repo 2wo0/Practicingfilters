@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import PostList from "./PostList";
 
-export default function Post({ data }) {
+export default function Post({ data, inputValue }) {
   const [hanbleClick, setHanbleClick] = useState(true);
 
   return (
@@ -18,7 +18,9 @@ export default function Post({ data }) {
       <PostListWrap>
         {data &&
           data.map((content, idx) => {
-            return <PostList key={idx} content={content} />;
+            return (
+              <PostList key={idx} content={content} inputValue={inputValue} />
+            );
           })}
       </PostListWrap>
     </PostWrap>

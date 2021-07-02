@@ -60,7 +60,7 @@ export default function Search() {
           ></PostSearch>
         </InputWrap>
       </SearchWrap>
-      <Post data={filterData[0] ? filterData : data} />
+      <Post data={filterData[0] ? filterData : data} inputValue={inputValue} />
     </>
   );
 }
