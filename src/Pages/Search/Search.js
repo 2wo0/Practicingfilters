@@ -9,11 +9,14 @@ export default function Search() {
   const [inputValue, setInputValue] = useState("");
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState(false);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [target, setTarget] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(AListAPI);
+        const response = await axios.get(`${AListAPI}?page=0`);
         setData(response.data);
       } catch (e) {
         console.log("Error:", e);
@@ -21,6 +24,42 @@ export default function Search() {
     };
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      setPageNumber(pageNumber + 1);
+      const response = await axios.get(`${AListAPI}?page=${pageNumber}`);
+      if (data.length === 0) {
+        setLoading(true);
+        setData(response.data);
+      } else {
+        setData([...data, ...response.data]);
+        setLoading(true);
+      }
+    } catch (e) {
+      console.log("Error:", e);
+    }
+  };
+
+  useEffect(() => {
+    return () => setLoading(false);
+  }, []);
+
+  const callback = ([entry], observer) => {
+    if (entry.isIntersecting) {
+      fetchData();
+      observer.observe(target);
+    }
+  };
+
+  useEffect(() => {
+    let observer;
+    if (target) {
+      observer = new IntersectionObserver(callback, { threshold: 1 });
+      observer.observe(target);
+    }
+    return () => observer && observer.disconnect();
+  }, [target]);
 
   useEffect(() => {
     const filter = () => {
@@ -61,6 +100,7 @@ export default function Search() {
         </InputWrap>
       </SearchWrap>
       <Post data={filterData[0] ? filterData : data} inputValue={inputValue} />
+      <Loding ref={setTarget}>{loading && "Loading..."}</Loding>
     </>
   );
 }
@@ -100,4 +140,8 @@ const Icon = styled.div`
 const PostSearch = styled.input`
   width: 280px;
   cursor: text;
+`;
+
+const Loding = styled.div`
+  width: 100px;
 `;
