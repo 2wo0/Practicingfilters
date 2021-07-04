@@ -1,17 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PostList from "./PostList";
+import axios from "axios";
+import { AListAPI } from "../../Config";
+import { BListAPI } from "../../Config";
 
 export default function Post({ data, inputValue }) {
   const [hanbleClick, setHanbleClick] = useState(true);
+  const [aListData, setAListData] = useState([]);
+  const [bListData, setBListData] = useState([]);
+
+  const AfetchData = async () => {
+    try {
+      const response = await axios.get(`${AListAPI}?page=0`);
+      setAListData(response.data);
+    } catch (e) {
+      console.log("Error:", e);
+    }
+    setHanbleClick(true);
+  };
+
+  const BfetchData = async () => {
+    try {
+      const response = await axios.get(`${BListAPI}?page=0`);
+      setBListData(response.data);
+    } catch (e) {
+      console.log("Error:", e);
+    }
+    setHanbleClick(false);
+  };
 
   return (
     <PostWrap>
       <ButtonWrap>
-        <Aposts onClick={() => setHanbleClick(true)} hanbleClick={hanbleClick}>
+        <Aposts onClick={() => AfetchData()} hanbleClick={hanbleClick}>
           A Posts
         </Aposts>
-        <Bposts onClick={() => setHanbleClick(false)} hanbleClick={hanbleClick}>
+        <Bposts onClick={() => BfetchData()} hanbleClick={hanbleClick}>
           B Posts
         </Bposts>
       </ButtonWrap>
